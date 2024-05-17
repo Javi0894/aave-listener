@@ -4,9 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./build/index.js",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^6.12.1",
+    "module-alias": "^2.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "_moduleAliases": {
+    "root": ".",
+    "@aave": "src/aave"
+  }
 }

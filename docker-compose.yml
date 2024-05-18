@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+  aave_rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${USER_NAME}
+      RABBITMQ_DEFAULT_PASS: ${USER_PASS}
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    ports:
+      - "15671:15671"
+      - "15672:15672"
+      - "15691:15691"
+      - "15692:15692"
+      - "25672:25672"
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+  listener:
+    container_name: aave-listener
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      aave_rabbitmq:
+        condition: service_started

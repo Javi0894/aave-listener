@@ -1,0 +1,57 @@
+{
+  "queues": [
+    {
+      "name": "pool_supply_apy",
+      "vhost": "/",
+      "durable": false,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "classic"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "aave_exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": false,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "aave_exchange",
+      "vhost": "/",
+      "destination": "pool_supply_apy",
+      "destination_type": "queue",
+      "routing_key": "aave_pool_apy_routing_key",
+      "arguments": {}
+    }
+  ],
+  "users": [
+    {
+      "name": "javi",
+      "password_hash": "Q4tRo8n2ZMUuqmBzrPB7aSMqVnXpfYaA0VPy4IGtEjcN/BTS",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ["administrator"],
+      "limits": {}
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "javi",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ]
+}
